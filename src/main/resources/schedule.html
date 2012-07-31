@@ -1,0 +1,2383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0035)http://schedule.naliva.com/schedule -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Розклад</title>
+    <!--<base href="http://schedule.naliva.com/">-->
+    <base href=".">
+
+    <link rel="shortcut icon" href="http://schedule.naliva.com/img/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./schedule_files/common.css">
+    <script src="./schedule_files/oop.js"></script>
+    <style type="text/css"></style>
+    <script src="./schedule_files/jquery.js"></script>
+    <script src="./schedule_files/check.js"></script>
+    <script src="./schedule_files/grid.js"></script>
+    <script>
+        function changeSemester(id){
+        $.ajax({
+        type: 'POST',
+        url: 'http://schedule.naliva.com/ajax/dochangesemester',
+        data: 'id='+id,
+        success: function(adata){
+        document.location.reload();
+        },
+        dataType: 'json'
+        });
+        }
+        function changeFaculty(id){
+        $.ajax({
+        type: 'POST',
+        url: 'http://schedule.naliva.com/ajax/dochangefaculty',
+        data: 'id='+id,
+        success: function(adata){
+        document.location.reload();
+        },
+        dataType: 'json'
+        });
+        }
+    </script>
+</head>
+<body>
+<div style="float:left;margin-bottom:10px;">
+    Факультет
+    <select onchange="changeFaculty(this.options[this.options.selectedIndex].value)">
+        <option value="3">Історичний</option>
+        <option value="18">Безперервної освіти</option>
+        <option value="15">Біолого-екологічний</option>
+        <option value="5">Геолого-географічний</option>
+        <option value="20">Довузівської підготовки</option>
+        <option value="7">Економічний</option>
+        <option value="17">Заочної та дистанційної освіти</option>
+        <option value="16">Медичний</option>
+        <option value="13">Механіко-математичний</option>
+        <option value="8">Міжнародної економіки</option>
+        <option value="6" selected="">Прикладної математики</option>
+        <option value="4">Психології</option>
+        <option value="19">Післядипломної освіти</option>
+        <option value="9">Систем і засобів масової комунікації</option>
+        <option value="2">Соціально-гуманітарний</option>
+        <option value="1">Української й іноземної філології та мистецтвознавства</option>
+        <option value="11">Фізики, електроніки та комп'ютерних систем</option>
+        <option value="12">Фізико-технічний</option>
+        <option value="14">Хімічний</option>
+        <option value="10">Юридичний</option>
+
+    </select>
+    Семестр
+    <select onchange="changeSemester(this.options[this.options.selectedIndex].value)">
+        <option value="8" selected="">2012-2013, 1 семестр</option>
+
+    </select>
+</div>
+
+<div id="loader">Завантаження...</div>
+<div class="header">
+    <ul class="menu">
+        <li><a href="http://schedule.naliva.com/">Головна</a></li>
+        <li class="sel"><a href="./schedule_files/schedule.html" class="blink2">Розклад</a></li>
+    </ul>
+    <ul class="submenu">
+        <li class="sel"><a href="./schedule_files/schedule.html" class="blink2">Розклад груп</a></li>
+        <li><a href="http://schedule.naliva.com/chairschedule">Розклад кафедр</a></li>
+        <li><a href="http://schedule.naliva.com/auditoryschedule">Розклад аудиторій</a></li>
+    </ul>
+    <div style="clear:both;"></div>
+</div>
+<table id="tbl" class="scheduletable" width="8275" cellspacing="0" cellpadding="2" border="1">
+<tbody>
+<tr>
+    <th></th>
+    <th id="g122" nowrap="" colspan="2" class="green">ПК-12-1</th>
+    <th id="g120" nowrap="" colspan="2" class="green">ПЗ-12-1</th>
+    <th id="g117" nowrap="" colspan="2">ПМ-12-1</th>
+    <th id="g118" nowrap="" colspan="2">ПМ-12-2</th>
+    <th id="g119" nowrap="" colspan="2" class="green">ПС-12-1</th>
+    <th id="g72" nowrap="" colspan="2">ПК-11-1</th>
+    <th id="g70" nowrap="" colspan="2">ПЗ-11-1</th>
+    <th id="g121" nowrap="" colspan="2" class="green">ПЗ-12у</th>
+    <th id="g69" nowrap="" colspan="2">ПМ-11-1</th>
+    <th id="g71" nowrap="" colspan="2">ПС-11-1</th>
+    <th id="g53" nowrap="" colspan="2" class="green">ПК-10-1</th>
+    <th id="g51" nowrap="" colspan="2" class="green">ПЗ-10-1</th>
+    <th id="g87" nowrap="" colspan="2">ПЗ-11у</th>
+    <th id="g49" nowrap="" colspan="2">ПМ-10-1</th>
+    <th id="g50" nowrap="" colspan="2">ПМ-10-2</th>
+    <th id="g52" nowrap="" colspan="2" class="green">ПС-10-1</th>
+    <th id="g48" nowrap="" colspan="2" class="green">ПК-09-1</th>
+    <th id="g44" nowrap="" colspan="2" class="green">ПЗ-09-1</th>
+    <th id="g46" nowrap="" colspan="2">ПМ-09-1</th>
+    <th id="g47" nowrap="" colspan="2">ПМ-09-2</th>
+    <th id="g45" nowrap="" colspan="2" class="green">ПС-09-1</th>
+    <th id="g115" nowrap="" colspan="2">ПК-12с-1</th>
+    <th id="g116" nowrap="" colspan="2" class="green">ПК-12с-2</th>
+    <th id="g106" nowrap="" colspan="2" class="green">ПЗ-12с</th>
+    <th id="g109" nowrap="" colspan="2" class="green">ПМ-12с-1</th>
+    <th id="g110" nowrap="" colspan="2">ПМ-12с-2</th>
+    <th id="g112" nowrap="" colspan="2">ПС-12с</th>
+    <th id="g113" nowrap="" colspan="2">ПК-12м-1</th>
+    <th id="g114" nowrap="" colspan="2" class="green">ПК-12м-2</th>
+    <th id="g105" nowrap="" colspan="2" class="green">ПЗ-12м</th>
+    <th id="g107" nowrap="" colspan="2">ПМ-12м-1</th>
+    <th id="g108" nowrap="" colspan="2" class="green">ПМ-12м-2</th>
+    <th id="g111" nowrap="" colspan="2">ПС-12м</th>
+</tr>
+<tr>
+    <th rowspan="10">Пн</th>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Архітектура обчислювальних систем (лк.)<br>
+        <small>асист. Дзюба П.А.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/53</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="4" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Основи Інтернет (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Аналіз алгоритмів. Методи трансляції (лк.)<br>
+        <small>доц. Горін О.К.<br>3/39</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Аналіз даних та знань (лк.)<br>
+        <small>асист. Правдивий О.В.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (лаб.)<br>
+        <small>ст. викл. Кузенков О., ст. викл. Жильцова О.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Логічне і функціональне програмування (лаб.)<br>
+        <small>ст. викл. Єфімов В.М., асист. Архангельська Ю.М.<br>3/47</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Алгоритми і аналіз складності (лк.)<br>
+        <small>асист. Федоренко Н.К.<br>3/31</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" height="65px">Алгоритми і структури даних (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/40</small>
+    </td>
+    <td height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Операційні системи (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., доц. Білобородько О.І.<br>3/51</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія ймовірностей та математична статистика (пр.)<br>
+        <small>доц. Гончаров С.В.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Аналіз алгоритмів. Методи трансляції (лаб.)<br>
+        <small>доц. Горін О.К., асист. Сидорова М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Функціональний аналіз (лк.)<br>
+        <small>доц. Сердюк М.Є.<br>3/62</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Алхімова В.М.<br>3/37</small>
+    </td>
+    <td class="tb lb rb2" colspan="8" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb" height="65px">Алгоритми і структури даних (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/40</small>
+    </td>
+    <td class="tb" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Операційні системи (пр.)<br>
+        <small>доц. Білобородько О.І.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Практикум перекладу наукової літератури за фахом
+        (пр.)<br>
+        <small>ст. викл. Атанова М.Ю., ст. викл. Костєв В.<br>3/54</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Архітектура обчислювальних систем (лк.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних та інформаційні системи (лк.)<br>
+        <small>ст. викл. Косолап А.І.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Теорія ймовірностей та математична статистика (лк.)<br>
+        <small>доц. Гончаров С.В.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних (лаб.)<br>
+        <small>асист. Булана Т.М.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Основи Інтернет (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/46</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Системне програмування і операційні системи
+        (лк.)<br>
+        <small>ст. викл. Шевченко Т.О.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Функціональний аналіз (лк.)<br>
+        <small>доц. Сердюк М.Є.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичні основи представлення знань (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Математичні моделі механіки суцільного середовища (лаб.)<br>
+        <small>доц. Тонкошкур І.С., доц. Пасічник В.А.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" height="65px">Комп'ютерні мережі (лаб.)<br>
+        <small>ст. викл. Пасинков М.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Інтернет - програмування (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/53</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Інтернет - програмування (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/53</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Алгоритми і структури даних (лк.)<br>
+        <small>доц. Бердник М.Г.<br>3/58</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Операційні системи (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., доц. Білобородько О.І.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Функціональний аналіз (пр.)<br>
+        <small>доц. Сердюк М.Є.<br>3/62</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Математичні моделі механіки суцільного середовища (лк.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/53</small>
+    </font></td>
+    <td class="lb rb2" colspan="2" height="65px">Алгоритми і аналіз складності (лаб.)<br>
+        <small>асист. Федоренко Н.К.<br>3/28</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/25</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Українська мова (за професійним спрямуванням) (пр.)<br>
+        <small>ст. викл. Сінкевич Н.М.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Дискретна математика (пр.)<br>
+        <small>ст. викл. Шевченко Т.О.<br>3/31</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Атанова М.Ю., ст. викл. Костєв В.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Математичний аналіз (лк.)<br>
+        <small>доц. Алхімова В.М.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Операційні системи (лк.)<br>
+        <small>доц. Білобородько О.І.<br>3/37</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" height="65px">Архітектура обчислювальних систем (лаб.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/45</small>
+    </td>
+    <td class="tb rb2" height="65px">&nbsp;</td>
+    <td class="tb lb" rowspan="2" height="130px">Функціональне та логічне програмування (лаб.)<br>
+        <small>доц. Ясько Н.Н., асист. Дзюба П.А.<br>4/40</small>
+    </td>
+    <td class="tb" rowspan="2" height="130px">Бази даних та інформаційні системи (лаб.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>4/43</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/59</small>
+    </td>
+    <td class="tb lb rb2" colspan="6" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Теорія систем та математичне моделювання (лк.)<br>
+        <small>доц. Золотько К.Є.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичні основи представлення знань (лаб.)<br>
+        <small>проф. Карпов О.М., асист. Лучінкіна О.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Варіаційні методи аналізу математичних моделей. Метод
+        скінченних елементів (лк.)<br>
+        <small>проф. Кузьменко В.І.<br>3/53</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних та інформаційні системи (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Комп'ютерні мережі (лк.)<br>
+        <small>ст. викл. Пасинков М.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Паралельна обробка даних (лк.)<br>
+        <small>доц. Бердник М.Г.<br>3/46</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Паралельна обробка даних (лк.)<br>
+        <small>доц. Бердник М.Г.<br>3/46</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Алхімова В.М.<br>3/32</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Обчислювальна геометрія та комп'ютерна графіка (лк.)<br>
+        <small>проф. Байбуз О.Г.<br>3/46</small>
+    </td>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td class="rb2" height="65px">Архітектура обчислювальних систем (лаб.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи теорії масового обслуговування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/38</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Дискретна математика (пр.)<br>
+        <small>ст. викл. Шевченко Т.О.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Атанова М.Ю., ст. викл. Костєв В.<br>3/50</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Українська мова (за професійним спрямуванням) (пр.)<br>
+        <small>ст. викл. Сінкевич Н.М.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/37</small>
+    </td>
+    <td class="tb lb" height="65px">Архітектура комп'ютера (лаб.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/45</small>
+    </td>
+    <td class="tb" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Операційні системи (пр.)<br>
+        <small>доц. Білобородько О.І.<br>3/46</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Функціональне та логічне програмування (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="8" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Розподілені бази даних (лаб.)<br>
+        <small>доц. Бердник М.Г., ст. викл. Красношапка Д.В.<br>4/40</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td height="65px">Архітектура комп'ютера (лаб.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/51</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (пр.)<br>
+        <small>ст. викл. Кузенков О.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Розпізнавання мови (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/46</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Нелінійні процеси та моделі (лаб.)<br>
+        <small>проф. Кузьменко В.І.<br>3/47</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Бази даних (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Розподілені бази даних (лк.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>3/37</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td height="65px">Проектування програмних продуктів (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/40</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Інтернет - технології (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи теорії масового обслуговування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/51</small>
+    </td>
+</tr>
+<tr>
+    <th rowspan="10" class="tb2">Вт</th>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Українська мова (за професійним спрямуванням) (пр.)<br>
+        <small>ст. викл. Сінкевич Н.М.<br>3/30</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">Візуальне програмування (лаб.)<br>
+        <small>асист. Правдивий О.В., доц. Притоманова О.М.<br>3/28</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" height="65px">&nbsp;</td>
+    <td class="tb tb2" height="65px">Функціональне та логічне програмування (лаб.)<br>
+        <small>асист. Дзюба П.А.<br>4/40</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Бази даних (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" rowspan="2" height="130px">Проектування програмних продуктів (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/40</small>
+    </td>
+    <td class="tb tb2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Математичні основи представлення знань (пр.)<br>
+        <small>асист. Лучінкіна О.<br>3/50</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Технологія програмування (лк.)<br>
+        <small>доц. Земляна С.В.<br>3/46</small>
+    </td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">Нейронні мережі (лк.)<br>
+        <small>доц. Громов В.О.<br>3/31</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" height="65px">&nbsp;</td>
+    <td class="tb tb2" height="65px">Методи та алгоритми паралельних обчислень (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/45</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Аналіз динамічних рядів (лаб.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/47</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Поектування баз данних та баз знань або Інтелектуальний аналіз
+        данних (лк.)<br>
+        <small>доц. Гук Н.А.<br>3/26</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb rb2" colspan="2" height="65px">Візуальне програмування (лк.)<br>
+        <small>доц. Притоманова О.М.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія ймовірностей та математична статистика (лк.)<br>
+        <small>доц. Гончаров С.В.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Бази даних (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Аналіз даних та знань (лаб.)<br>
+        <small>асист. Правдивий О.В., ст. викл. Кузенков О.<br>3/32</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Системний аналіз та проектування систем обробки інформації (лаб.)<br>
+        <small>асист. Булана Т.М., доц. Земляна С.В.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb rb2" colspan="2" height="65px">Нейронні мережі (лаб.)<br>
+        <small>доц. Громов В.О.<br>3/28</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Аналіз динамічних рядів (лаб.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/38</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Сучасні чисельні методи розвязування задач математичної фізики. Пакети
+        прикладних програм (лаб.)<br>
+        <small>проф. Д'яченко М.П., доц. Пасічник В.А.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Українська мова (за професійним спрямуванням) (пр.)<br>
+        <small>ст. викл. Сінкевич Н.М.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Математичний аналіз (лк.)<br>
+        <small>доц. Черницька О.В.<br>3/53</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" height="65px">Програмування та алгоритмічні мови (лк.)<br>
+        <small>ст. викл. Сегеда Н.Є.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Політологія (лк.)<br>
+        <small>доц. Кремена В.І.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Сорокін В.І.<br>3/54</small>
+    </td>
+    <td class="tb lb rb2" colspan="4" rowspan="2" height="130px"><font size="+1">Політологія (лк.)<br>
+        <small>доц. Кремена В.І.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Програмування та підтримка веб-застосувань (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Філософія (лк.)<br>
+        <small>доц. Павлова Т.С.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Рівняння математичної фізики (лк.)<br>
+        <small>проф. Д'яченко М.П.<br>3/58</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Системне програмування і операційні системи
+        (лаб.)<br>
+        <small>ст. викл. Шевченко Т.О., асист. Правдивий О.В.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Елементи хаотичної динаміки (лк.)<br>
+        <small>проф. Білозьоров В.Є.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Системи штучного інтелекту (лк.)<br>
+        <small>проф. Ободан Н.І.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Якісна теорія диференціальних рівнянь. Асимптотичні методи
+        (лаб.)<br>
+        <small>доц. Варех Н.В., ст. викл. Козакова Н.Л.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Технологія програмування (лаб.)<br>
+        <small>асист. Лучінкіна О., доц. Земляна С.В.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія прийняття рішень (лк.)<br>
+        <small>доц. Турчина В.А.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Інтелектуальні системи (лаб.)<br>
+        <small>доц. Золотько К.Є., асист. Дзюба П.А.<br>4/43</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Мультиагентні системи (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Нелінійні процеси та моделі (лаб.)<br>
+        <small>проф. Кузьменко В.І., доц. Скороход Г.І.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Інтелектуальний аналіз данних (лаб.)<br>
+        <small>ст. викл. Кузенков О.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Паралельна обробка даних (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/40</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Методи теорії масового обслуговування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/38</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Ділова іноземна мова (пр.)<br>
+        <small>асист. Атанова М.Ю.<br>3/61</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Аналіз динамічних процесів (лк.)<br>
+        <small>доц. Громов В.О.<br>3/46</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb rb2" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Скороход Г.І.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія ймовірностей та математична статистика (пр.)<br>
+        <small>доц. Гончаров С.В.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/37</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Системний аналіз та проектування систем обробки інформації (лк.)<br>
+        <small>доц. Земляна С.В.<br>3/46</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Паралельна обробка даних (лаб.)<br>
+        <small>доц. Бердник М.Г., асист. Сірик С.Ф.<br>4/43</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">Додаткові розділи диференціальних рівнянь (лаб.)<br>
+        <small>доц. Варех Н.В., ст. викл. Катан В.О.<br>3/59</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Сучасні чисельні методи розвязування задач математичної фізики. Пакети
+        прикладних програм (лаб.)<br>
+        <small>доц. Пасічник В.А.<br>3/38</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи теорії масового обслуговування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/51</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Нелінійні процеси та моделі (лаб.)<br>
+        <small>проф. Кузьменко В.І.<br>3/61</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">Поектування баз данних та баз знань або Інтелектуальний аналіз данних
+        (пр.)<br>
+        <small>доц. Гук Н.А.<br>3/50</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" height="65px">Програмування (пр.)<br>
+        <small>доц. Хижа О.Л.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Лінійна алгебра та аналітична геометрія (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/53</small>
+    </td>
+    <td class="tb lb rb2" colspan="6" height="65px"><font size="+1">Українська мова (за професійним спрямуванням)
+        (лк.)<br>
+        <small>доц. Корольова В.В.<br>3/62</small>
+    </font></td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Філософія (лк.)<br>
+        <small>доц. Павлова Т.С.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Математичний аналіз (лк.)<br>
+        <small>доц. Сорокін В.І.<br>3/31</small>
+    </td>
+    <td class="tb lb rb2" colspan="4" rowspan="2" height="130px"><font size="+1">Філософія (лк.)<br>
+        <small>доц. Павлова Т.С.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритмічні мови та мовні процесори (лаб.)<br>
+        <small>асист. Сидорова М., доц. Кузнецов К.А.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Елементарна математика та шкільний курс інформатики.
+        Методика викладання (лаб.)<br>
+        <small>ст. викл. Катан В.О., доц. Скороход Г.І.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Основи Інтернет (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/28</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Рівняння математичної фізики (лк.)<br>
+        <small>проф. Д'яченко М.П.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Основи Інтернет (лаб.)<br>
+        <small>доц. Золотько К.Є., асист. Сірик С.Ф.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Системи штучного інтелекту (лаб.)<br>
+        <small>проф. Ободан Н.І., доц. Гук Н.А.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Теорія систем та математичне
+        моделювання (лк.)<br>
+        <small>проф. Кузьменко В.І.<br>3/25</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія прийняття рішень (лаб.)<br>
+        <small>доц. Турчина В.А.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Моделювання складних нелінійних систем
+        (лк.)<br>
+        <small>проф. Білозьоров В.Є.<br>3/37</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Методи теорії масового обслуговування (лк.)<br>
+        <small>проф. Байбуз О.Г.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Методи інтегральних перетворень (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Теорія часових рядів (лк.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Інтелектуальний аналіз данних (лк.)<br>
+        <small>ст. викл. Кузенков О.<br>3/61</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Моделювання складних нелінійних систем
+        (лк.)<br>
+        <small>проф. Білозьоров В.Є.<br>3/37</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Методи теорії масового обслуговування (лк.)<br>
+        <small>проф. Байбуз О.Г.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Методи інтегральних перетворень (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Теорія часових рядів (лк.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Аналіз динамічних процесів (лаб.)<br>
+        <small>доц. Громов В.О.<br>3/47</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Українська мова (за професійним спрямуванням) (лк.)<br>
+        <small>доц. Корольова В.В.<br>3/62</small>
+    </font></td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Програмування (лк.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/53</small>
+    </font></td>
+    <td class="lb rb2" colspan="2" height="65px">Дискретна математика (пр.)<br>
+        <small>доц. Гук Н.А.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Українська мова (за професійним спрямуванням) (лк.)<br>
+        <small>доц. Корольова В.</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Ймовірносні процеси та математична статистика в автоматизованих
+        системах (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/46</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи інтегральних перетворень (пр.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Основи теорії розпізнавання мови (лаб.)<br>
+        <small>асист. Лучінкіна О.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи інтегральних перетворень (пр.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія часових рядів (пр.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/38</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія мультиагентних систем (лк.)<br>
+        <small>доц. Громов В.О.<br>3/26</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Алхімова В.М.<br>3/53</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (пр.)<br>
+        <small>доц. Варех Н.В.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Черницька О.В.<br>3/54</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Скороход Г.І.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Алгоритми і структури даних (лк.)<br>
+        <small>доц. Бердник М.Г.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Філософія (пр.)<br>
+        <small>доц. Павлова Т.С.<br>3/57</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Лінійна алгебра та аналітична геометрія (пр.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/61</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Обчислювальна геометрія та комп'ютерна графіка (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Сидорова М.<br>3/45</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Філософія (пр.)<br>
+        <small>ст. викл. Ланчевська А.А.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Психологія (лк.)<br>
+        <small>доц. Лазаренко В.І.<br>3/25</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних (лаб.)<br>
+        <small>асист. Булана Т.М.<br>3/28</small>
+    </td>
+    <td class="tb lb rb2" colspan="6" rowspan="2" height="130px"><font size="+1">Психологія (лк.)<br>
+        <small>доц. Лазаренко В.І.<br>3/25</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Основи Інтернет (лк.)<br>
+        <small>доц. Золотько К.Є.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Ймовірносні процеси та математична статистика в автоматизованих
+        системах (пр.)<br>
+        <small>доц. Мацуга О.М.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Бази даних та інформаційні системи
+        (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Системи штучного інтелекту (лаб.)<br>
+        <small>проф. Ободан Н.І.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Чисельні методи математичної фізики
+        (лаб.)<br>
+        <small>доц. Зайцев В.Г., асист. Волошко Л.В.<br>4/43</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Мультиагентні системи (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Нелінійні процеси та моделі (лк.)<br>
+        <small>проф. Кузьменко В.І.<br>3/31</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Паралельні алгоритми і системи (лаб.)<br>
+        <small>асист. Федоренко Н.К.<br>3/38</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Моделювання складних нелінійних систем
+        (лаб.)<br>
+        <small>проф. Білозьоров В.Є.<br>4/40</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Нелінійні процеси та моделі (лк.)<br>
+        <small>проф. Кузьменко В.І.<br>3/31</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Теорія мультиагентних систем (лк.)<br>
+        <small>доц. Громов В.О.<br>3/26</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Філософія (пр.)<br>
+        <small>ст. викл. Ланчевська А.А.<br>3/59</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Філософія (пр.)<br>
+        <small>доц. Павлова Т.С.<br>3/57</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Сорокін В.І.<br>3/32</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Ймовірносні процеси та математична статистика в автоматизованих
+        системах (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Єрещенко Н.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Мультиагентні системи (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Аналіз динамічних процесів (лк.)<br>
+        <small>доц. Громов В.О.<br>3/30</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Професійна практика програмної інженерії (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Об'єктно-орієнтоване програмування (лаб.)<br>
+        <small>доц. Хижа О.Л., асист. Сидорова М.<br>3/28</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритмічні мови та мовні процесори (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Чисельні методи (лаб.)<br>
+        <small>доц. Гарт Л.Л., ст. викл. Кузенков О.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" height="65px">&nbsp;</td>
+    <td class="tb" height="65px">Проектування програмних продуктів (лаб.)<br>
+        <small>доц. Бердник М.Г.<br>4/43</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Імітаційне моделювання (лаб.)<br>
+        <small>доц. Мацуга О.М., ст. викл. Мащенко Л.В.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Інтелектуальні системи (лк.)<br>
+        <small>доц. Золотько К.Є.<br>3/46</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Інтелектуальні системи (лк.)<br>
+        <small>доц. Золотько К.Є.<br>3/46</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td height="65px">Алгоритми і структури даних (лаб.)<br>
+        <small>ст. викл. Степанова Н.І.<br>4/40</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Професійна практика програмної інженерії (пр.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Чисельні методи (лаб.)<br>
+        <small>доц. Гарт Л.Л., ст. викл. Кузенков О.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Проектування програмних продуктів (лк.)<br>
+        <small>доц. Бердник М.Г.<br>3/25</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Нейронні мережі (лк.)<br>
+        <small>доц. Громов В.О.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Основи теорії розпізнавання мови (лаб.)<br>
+        <small>асист. Лучінкіна О.<br>3/38</small>
+    </font></td>
+</tr>
+<tr>
+    <th rowspan="10" class="tb2">Ср</th>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Дискретна математика (лк.)<br>
+        <small>ст. викл. Довгай П.О.<br>3/37</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Додаткові розділи алгебри та геометрії (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/53</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" rowspan="2" height="130px">Дискретна математика (лк.)<br>
+        <small>доц. Гук Н.А.<br>3/31</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Математична логіка та теорія алгоритмів (пр.)<br>
+        <small>доц. Шевельова А.Є.<br>3/25</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Професійна практика програмної інженерії (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Людино-машина взаємодія (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., доц. Білобородько О.І.<br>3/28</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Бази даних (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/46</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">Алгоритми і аналіз складності (лаб.)<br>
+        <small>асист. Федоренко Н.К.<br>3/51</small>
+    </td>
+    <td class="tb tb2 lb" colspan="4" height="65px"><font size="+1">Інтернет - програмування (лаб.)<br>
+        <small>доц. Ясько Н.Н., ст. викл. Красношапка Д.В.<br>4/43</small>
+    </font></td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Аналіз динамічних рядів (пр.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/62</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Аналіз динамічних рядів (пр.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/62</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Розпізнання образів (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/32</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методика викладання дистанційних курсів (лк.)<br>
+        <small>доц. Зайцева Т.А.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Тестування програмного забезпечення (лк.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/62</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методика викладання дистанційних курсів (лк.)<br>
+        <small>доц. Зайцева Т.А.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Евристичні алгоритми комбінаторної оптимізації (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Розпізнання образів (лаб.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/32</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Дискретна математика (пр.)<br>
+        <small>ст. викл. Довгай П.О.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Комп’ютерна дискретна математика (лк.)<br>
+        <small>асист. Федоренко Н.К.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Алгебра та геометрія (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/53</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Програмування та алгоритмічні мови (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., ст. викл. Сегеда Н.Є.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Практикум перекладу наукової літератури (пр.)<br>
+        <small>ст. викл. Комарова Л.В., асист. Каліберда Н.<br>3/59</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Логічне і функціональне програмування (лк.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/58</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Диференціальні рівняння (лк.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Методи оптимізації та дослідження операцій (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритмічні мови та мовні процесори (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Людино-машина взаємодія (лаб.)<br>
+        <small>доц. Білобородько О.І.<br>3/28</small>
+    </td>
+    <td class="tb lb rb2" colspan="6" rowspan="2" height="130px"><font size="+1">Економіка (лк.)<br>
+        <small>доц. Щеньова В.Б.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Спеціалізовані мови програмування (лаб.)<br>
+        <small>доц. Ясько Н.Н., ст. викл. Красношапка Д.В.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Чисельні методи в інформатиці (лк.)<br>
+        <small>доц. Шевельова А.Є.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Бази даних та інформаційні системи (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Математичні моделі механіки суцільного середовища (лаб.)<br>
+        <small>доц. Тонкошкур І.С., доц. Пасічник В.А.<br>3/54</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Системи штучного інтелекту (лк.)<br>
+        <small>проф. Ободан Н.І.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Моделювання складних нелінійних систем
+        (лаб.)<br>
+        <small>доц. Зайцев В.Г., проф. Білозьоров В.Є.<br>4/43</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Аналіз динамічних рядів (лк.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/62</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Паралельні алгоритми і системи (лк.)<br>
+        <small>доц. Турчина В.А.<br>3/26</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Аналіз динамічних рядів (лк.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Філософія природознавства (лк.)<br>
+        <small>проф. Шевцов С.В.<br>3/61</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Паралельні алгоритми і системи (лк.)<br>
+        <small>доц. Турчина В.А.<br>3/26</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Комп’ютерна дискретна математика (пр.)<br>
+        <small>асист. Федоренко Н.К.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методика викладання дистанційних курсів (лаб.)<br>
+        <small>доц. Зайцева Т.А.<br>3/47</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" height="65px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Комарова Л.В., ст. викл. Каліберда Н.І<br>3/50</small>
+    </td>
+    <td class="tb" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Лінійна алгебра та аналітична геометрія (пр.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Українська мова (за професійним спрямуванням) (пр.)<br>
+        <small>ст. викл. Сінкевич Н.М.<br>3/30</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/53</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Додаткові розділи вищої математики (пр.)<br>
+        <small>доц. Алхімова В.М.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Сорокін В.І.<br>3/62</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Диференціальні рівняння (лк.)<br>
+        <small>ст. викл. Катан В.О.<br>3/58</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Математична логіка і теорія алгоритмів (лк.)<br>
+        <small>доц. Шевельова А.Є.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Чисельні методи в інформатиці (лаб.)<br>
+        <small>доц. Гарт Л.Л., ст. викл. Кузенков О.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Алгоритмічні мови та мовні процесори
+        (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/25</small>
+    </font></td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Теорія функцій комплексної змінної.
+        Операційне числення (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/46</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Методи оптимізації та дослідження операцій
+        (лк.)<br>
+        <small>проф. Кісельова О.М.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Спеціалізовані мови програмування (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Комп'ютерні мережі (локальні, корпоративні, глобальні)
+        (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Методи оптимізації та дослідження
+        операцій (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/37</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Управління проектами (лаб.)<br>
+        <small>доц. Лозовська Л.І.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="12" height="65px"><font size="+1">Інтелектуальна власність (лк.)<br>
+        <small>доц. Артеменко Л.В.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Моделювання природничих процесів (лк.)<br>
+        <small>доц. Пасічник В.А.<br>3/61</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Паралельні алгоритми і системи (лаб.)<br>
+        <small>доц. Турчина В.А.<br>3/47</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td height="65px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Комарова Л.В.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Диференціальні рівняння (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/58</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Чисельні методи в інформатиці (лк.)<br>
+        <small>доц. Гарт Л.Л.<br>3/57</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи комп'ютерної імітації в соціально-економічних дослідженях (лаб.)<br>
+        <small>доц. Зайцева Т.А.<br>4/40</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Тестування програмного забезпечення (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., доц. Ємельяненко Т.Г.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Обернені задачі (лк.)<br>
+        <small>проф. Ободан Н.І.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Інтернет - програмування (лаб.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>4/43</small>
+    </font></td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Моделювання природничих процесів (лаб.)<br>
+        <small>доц. Пасічник В.А.<br>3/61</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>асист. Атанова М.Ю., ст. викл. Костєв В.К.<br>3/38</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Черницька О.В.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Програмування та алгоритмічні мови (лк.)<br>
+        <small>ст. викл. Сегеда Н.Є.<br>3/39</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Сорокін В.І.<br>3/62</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/53</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Математична логіка і теорія алгоритмів (пр.)<br>
+        <small>доц. Шевельова А.Є.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Чисельні методи в інформатиці (лк.)<br>
+        <small>доц. Гарт Л.Л.<br>4/49</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Людино-машина взаємодія (лк.)<br>
+        <small>доц. Білобородько О.І.<br>3/46</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Елементарна математика та шкільний курс інформатики.
+        Методика викладання (лк.)<br>
+        <small>доц. Скороход Г.І.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Рівняння математичної фізики (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/54</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Чисельні методи (пр.)<br>
+        <small>доц. Бойко Л.Т.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Теорія систем та математичне моделювання (лаб.)<br>
+        <small>доц. Золотько К.Є., ст. викл. Красношапка Д.В.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Комп'ютерні мережі (локальні, корпоративні, глобальні)
+        (лаб.)<br>
+        <small>ст. викл. Мащенко Л.В., асист. Єрещенко Н.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Випадкові процеси (лаб.)<br>
+        <small>асист. Архангельська Ю.М., асист. Сидорова М.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (лаб.)<br>
+        <small>доц. Коряшкіна Л.С., асист. Зайченко О.<br>3/30</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Управління проектами (лк.)<br>
+        <small>доц. Лозовська Л.І.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Чисельні методи математичної фізики (лк.)<br>
+        <small>доц. Зайцев В.Г.<br>3/58</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Сучасні чисельні методи розвязування
+        задач математичної фізики. Пакети прикладних програм (лк.)<br>
+        <small>доц. Тонкошкур І.С.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Обернені задачі (лк.)<br>
+        <small>проф. Ободан Н.І.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Методи та алгоритми паралельних обчислень (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/28</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Чисельні методи в інформатиці (лаб.)<br>
+        <small>доц. Гарт Л.Л., ст. викл. Кузенков О.<br>4/40</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Теорія функцій комплексної змінної. Операційне числення (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/54</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Методи оптимізації та дослідження операцій (пр.)<br>
+        <small>ст. викл. Шевченко Т.О.<br>3/32</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Адміністрування комп'ютерних мереж (лк.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>3/58</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (лаб.)<br>
+        <small>доц. Коряшкіна Л.С., асист. Зайченко О.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Випадкові процеси (лаб.)<br>
+        <small>асист. Архангельська Ю.М., асист. Сидорова М.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Мультиагентні системи (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Обернені задачі (лаб.)<br>
+        <small>проф. Ободан Н.І.<br>3/28</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Інтелектуальні системи (лаб.)<br>
+        <small>доц. Золотько К.Є.<br>4/43</small>
+    </font></td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Математичні основи інформаційних технологій (лаб.)<br>
+        <small>доц. Пасічник В.А.<br>3/61</small>
+    </font></td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Інформаційні технології обробки багатовимірних даних (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Рівняння математичної фізики (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/59</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Методи оптимізації та дослідження операцій
+        (лаб.)<br>
+        <small>ст. викл. Шевченко Т.О., асист. Зайченко О.<br>3/45</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Чисельні методи в інформатиці (лаб.)<br>
+        <small>доц. Бойко Л.Т., доц. Шевельова А.Є.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Бази даних та інформаційні системи (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/46</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" height="65px">Теорія прийняття рішень (лк.)<br>
+        <small>доц. Турчина В.А.<br>3/37</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Методи та алгоритми паралельних обчислень (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/28</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Черницька О.В.<br>3/59</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Програмування та підтримка веб-застосувань (лк.)<br>
+        <small>доц. Ясько Н.Н.<br>3/25</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Теорія функцій комплексної змінної. Операційне числення (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Інтернет - технології (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Методи та алгоритми паралельних обчислень (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/53</small>
+    </font></td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Методи та алгоритми паралельних обчислень (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/53</small>
+    </font></td>
+</tr>
+<tr>
+    <th rowspan="10" class="tb2">Чт</th>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Фізика (вибрані розділи) (лк.)<br>
+        <small>доц. Садовська Л.Я.<br>3/30</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Архітектура ЕОМ (лаб.)<br>
+        <small>ст. викл. Єфімов В.М., ст. викл. Сегеда Н.Є.<br>3/45</small>
+    </td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" rowspan="2" height="130px">Програмування та підтримка веб-застосувань (лаб.)<br>
+        <small>доц. Ясько Н.Н., ст. викл. Косолап А.І.<br>4/43</small>
+    </td>
+    <td class="tb tb2" rowspan="2" height="130px">Операційні системи та системне програмування (лаб.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>4/40</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Об'єктно-орієнтоване програмування (лаб.)<br>
+        <small>доц. Земляна С.В., асист. Сидорова М.<br>3/47</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Аналіз даних (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Архангельська Ю.М.<br>3/51</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" height="65px">Фізика (лк.)<br>
+        <small>доц. Єліна О.В.<br>3/32</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" rowspan="2" height="130px">Теорія керування (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/25</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="4" height="65px"><font size="+1">Методи верифікації та оптимізації програм
+        (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/37</small>
+    </font></td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Математичні моделі задач оптимального розбиття множини (лк.)<br>
+        <small>проф. Кісельова О.М.<br>3/26</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Основи програмної інженерії (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/28</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Теорія ймовірностей та математична статистика (пр.)<br>
+        <small>доц. Карнаух Є.В.<br>3/26</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Аналіз даних (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Архангельська Ю.М.<br>3/51</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Математичні основи інформатики (пр.)<br>
+        <small>доц. Хижа О.Л.<br>3/62</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи комп'ютерної імітації в соціально-економічних дослідженнях (лк.)<br>
+        <small>доц. Зайцева Т.А.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методика викладання дистанційних курсів (лаб.)<br>
+        <small>асист. Дзюба П.А.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Розпізнавання мови (лаб.)<br>
+        <small>асист. Лучінкіна О.<br>3/38</small>
+    </td>
+    <td class="lb" height="65px">Методи та алгоритми паралельних обчислень (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>4/40</small>
+    </td>
+    <td height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи комп'ютерної імітації в соціально-економічних дослідженнях (лк.)<br>
+        <small>доц. Зайцева Т.А.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Математичні моделі задач оптимального розбиття множини (лаб.)<br>
+        <small>доц. Лозовська Л.І.<br>3/32</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізика (вибрані розділи) (лк.)<br>
+        <small>доц. Садовська Л.Я.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Дискретна математика (лк.)<br>
+        <small>ст. викл. Шевченко Т.О.<br>3/25</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Скороход Г.І.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математична логіка та теорія алгоритмів (лк.)<br>
+        <small>доц. Шевельова А.Є.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Історія України (лк.)<br>
+        <small>доц. Кривий І.О.<br>3/30</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., доц. Білобородько О.І.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія ймовірностей та математична статистика (лк.)<br>
+        <small>доц. Бондаренко Я.С.<br>3/26</small>
+    </td>
+    <td class="tb lb" rowspan="2" height="130px">Операційні системи та системне програмування (лаб.)<br>
+        <small>ст. викл. Красношапка Д.В., асист. Дзюба П.А.<br>4/40</small>
+    </td>
+    <td class="tb" rowspan="2" height="130px">Програмування та підтримка веб-застосувань (лаб.)<br>
+        <small>ст. викл. Косолап А.І.<br>4/43</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Інформаційні технології обробки
+        багатовимірних даних (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/39</small>
+    </font></td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Програмне забезпечення ПЕОМ (лк.)<br>
+        <small>доц. Земляна С.В.<br>3/53</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" height="65px">Фізика (пр.)<br>
+        <small>доц. Єліна О.В.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичні основи інформатики (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Якісна теорія диференціальних рівнянь. Асимптотичні
+        методи (лк.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія керування (лаб.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="18" height="65px"><font size="+1">Цивільний захист (лк.)<br>
+        <small>доц. Долженкова О.В.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Методологія та організація наукових досліджень (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/50</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Цивільний захист (лк.)<br>
+        <small>доц. Долженкова О.В.<br>3/57</small>
+    </td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Архітектура комп'ютера (пр.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Проектний практикум (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Теорія функцій комплексної змінної. Операційне числення
+        (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/53</small>
+    </font></td>
+    <td class="lb rb2" colspan="2" height="65px">Рівняння математичної фізики (пр.)<br>
+        <small>ст. викл. Катан В.О.<br>3/32</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Системи штучного інтелекту (пр.)<br>
+        <small>проф. Ободан Н.І.<br>3/28</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Технологія програмування (лк.)<br>
+        <small>доц. Земляна С.В.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="18" height="65px"><font size="+1">Охорона праці в галузі (лк.)<br>
+        <small>доц. Долженкова О.В.<br>3/57</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Охорона праці в галузі (лк.)<br>
+        <small>доц. Долженкова О.В.<br>3/57</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Комарова Л.В., ст. викл. Каліберда Н.І<br>3/59</small>
+    </td>
+    <td class="tb" rowspan="2" height="130px">Архітектура обчислювальних систем (лаб.)<br>
+        <small>доц. Ясько Н.Н.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізика (вибрані розділи) (пр.)<br>
+        <small>доц. Садовська Л.Я.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Програмування (лк.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/25</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Математичний аналіз (пр.)<br>
+        <small>доц. Скороход Г.І.<br>3/31</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Комп'ютерна графіка (лк.)<br>
+        <small>проф. Байбуз О.Г.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Логічне і функціональне програмування (лаб.)<br>
+        <small>ст. викл. Єфімов В.М., асист. Архангельська Ю.М.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Математичний аналіз (лк.)<br>
+        <small>доц. Ламзюк В.Д.<br>3/53</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Диференціальні рівняння (пр.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Об'єктно-орієнтоване програмування
+        (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/62</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Програмне забезпечення ПЕОМ (лаб.)<br>
+        <small>асист. Лучінкіна О., доц. Земляна С.В.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія алгоритмів та математичні основи
+        представлення знань (лк.)<br>
+        <small>доц. Шевельова А.Є.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Адміністрування комп'ютерних мереж (лаб.)<br>
+        <small>ст. викл. Красношапка Д.В., асист. Дзюба П.А.<br>4/43</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритми комп (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/57</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Варіаційне числення. Основи теорії апроксимації
+        (лк.)<br>
+        <small>доц. Черницька О.В.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Офісні технології. Спецсемінар (лк.)<br>
+        <small>ст. викл. Сегеда Н.Є.<br>3/37</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Статистичні методи та прогнозування економічних процесів
+        (лаб.)<br>
+        <small>доц. Притоманова О.М.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Чисельні методи математичної фізики (лк.)<br>
+        <small>доц. Зайцев В.Г.<br>3/30</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">Методи теорії масового обслуговування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Математичні основи інформаційних технологій
+        (лк.)<br>
+        <small>доц. Пасічник В.А.<br>3/46</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Динамічні моделі теорії керування (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/61</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Евристичні алгоритми комбінаторної оптимізації
+        (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Математичні основи інформаційних технологій
+        (лк.)<br>
+        <small>доц. Пасічник В.А.<br>3/46</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Теорія алгоритмів та математична логіка (пр.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/53</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Програмне забезпечення ПЕОМ (лаб.)<br>
+        <small>асист. Лучінкіна О., доц. Земляна С.В.<br>3/51</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи обробки та візуалізації багатовимірних даних (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Сидорова М.<br>3/28</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">Статистичні методи та прогнозування економічних процесів (лк.)<br>
+        <small>доц. Притоманова О.М.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Математичні основи інформаційних технологій (лаб.)<br>
+        <small>доц. Пасічник В.А., ст. викл. Катан В.О.<br>3/47</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія часових рядів (пр.)<br>
+        <small>доц. Ємельяненко Т.Г.<br>3/38</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Методика викладання фахових дисциплін у вищій школі
+        (лк.)<br>
+        <small>доц. Зайцева Т.А.<br>3/32</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb" rowspan="2" height="130px">Архітектура обчислювальних систем (лаб.)<br>
+        <small>доц. Ясько Н.Н., асист. Дзюба П.А.<br>4/40</small>
+    </td>
+    <td class="tb" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Комарова Л.В.<br>3/62</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Іноземна мова (пр.)<br>
+        <small>ст. викл. Атанова М.Ю., ст. викл. Костєв В.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (пр.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/59</small>
+    </td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Архітектура комп'ютера (лк.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/37</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Логічне і функціональне програмування (пр.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Обчислювальна геометрія та комп'ютерна графіка (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Сидорова М.<br>3/45</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Об'єктно-орієнтоване програмування (лк.)<br>
+        <small>доц. Хижа О.Л.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Операційні системи та системне програмування (лк.)<br>
+        <small>ст. викл. Красношапка Д.В.<br>3/53</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Методи обробки та візуалізації багатовимірних даних (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/30</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Теорія алгоритмів та математичні основи
+        представлення знань (лаб.)<br>
+        <small>доц. Шевельова А.Є., ст. викл. Жильцова О.<br>3/28</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Екологія (лк.)<br>
+        <small>доц. Горбань В.А.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Варіаційне числення. Основи теорії апроксимації
+        (лаб.)<br>
+        <small>доц. Черницька О.В., доц. Пасічник В.А.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Офісні технології. Спецсемінар (лаб.)<br>
+        <small>ст. викл. Сегеда Н.Є., асист. Лучінкіна О.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" height="65px">Статистичні методи та прогнозування економічних процесів
+        (лк.)<br>
+        <small>доц. Притоманова О.М.<br>3/31</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Інтернет - технології (лк.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Основи теорії розпізнавання мови
+        (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/57</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Динамічні моделі теорії керування (лаб.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/26</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Евристичні алгоритми комбінаторної оптимізації (лаб.)<br>
+        <small>доц. Кузнецов К.А.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Основи теорії розпізнавання мови
+        (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/57</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Проектний практикум (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Булана Т.М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Архітектура ЕОМ (лк.)<br>
+        <small>ст. викл. Єфімов В.М.<br>3/39</small>
+    </td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Інформаційні технології обробки багатовимірних даних (пр.)<br>
+        <small>асист. Сидорова М.<br>3/54</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Аналіз даних (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/31</small>
+    </font></td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Методи верифікації та оптимізації програм (лаб.)<br>
+        <small>доц. Хижа О.Л.<br>3/47</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Професійна практика програмної інженерії (пр.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/39</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Аналіз даних (пр.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/50</small>
+    </td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Прикладний статистичний аналіз (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/46</small>
+    </font></td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Інтернет - технології (пр.)<br>
+        <small>ст. викл. Мащенко Л.В.<br>3/54</small>
+    </td>
+    <td class="tb lb" height="65px">Основи теорії розпізнавання мови (лаб.)<br>
+        <small>асист. Лучінкіна О.<br>3/38</small>
+    </td>
+    <td class="tb" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Математичні основи інформаційних технологій (лаб.)<br>
+        <small>доц. Пасічник В.А.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Математичні основи представлення знань (пр.)<br>
+        <small>ст. викл. Жильцова О.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Аналіз даних (пр.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" height="65px">&nbsp;</td>
+    <td height="65px">Основи теорії розпізнавання мови (лаб.)<br>
+        <small>асист. Лучінкіна О.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи комп'ютерної імітації в соціально-економічних дослідженях (лаб.)<br>
+        <small>доц. Зайцева Т.А.<br>4/40</small>
+    </td>
+</tr>
+<tr>
+    <th rowspan="10" class="tb2">Пт</th>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" height="65px">&nbsp;</td>
+    <td class="tb tb2" height="65px">Алгоритми і структури даних (лаб.)<br>
+        <small>ст. викл. Степанова Н.І.<br>4/40</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="4" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb tb2 lb" height="65px">Бази даних та інформаційні системи (лаб.)<br>
+        <small>ст. викл. Верба О.В., ст. викл. Косолап А.І.<br>4/40</small>
+    </td>
+    <td class="tb tb2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Інформаційні технології обробки багатовимірних даних (пр.)<br>
+        <small>асист. Сидорова М.<br>3/50</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Теорія ймовірностей та математична статистика (пр.)<br>
+        <small>доц. Гончаров С.В.<br>3/30</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb rb2" colspan="2" rowspan="2" height="130px">Чисельні методи (лк.)<br>
+        <small>доц. Бойко Л.Т.<br>3/32</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="4" height="65px"><font size="+1">Випадкові процеси (лк.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/46</small>
+    </font></td>
+    <td class="tb tb2 lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Алгоритми комбінаторної оптимізації (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/39</small>
+    </td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Нейронні мережі або сіткові алгоритми (лк.)<br>
+        <small>ст. викл. Пасинков М.<br>3/26</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">Аналіз мовних сигналів (лаб.)<br>
+        <small>проф. Карпов О.М.<br>3/45</small>
+    </td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb tb2 lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" height="65px">Програмування (лаб.)<br>
+        <small>ст. викл. Верба О.В., ст. викл. Косолап А.І.<br>4/40</small>
+    </td>
+    <td height="65px">Програмування (лаб.)<br>
+        <small>ст. викл. Степанова Н.І.<br>4/43</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" height="65px">Методи оптимізації та дослідження операцій (лаб.)<br>
+        <small>доц. Коряшкіна Л.С., асист. Зайченко О.<br>3/37</small>
+    </td>
+    <td height="65px">Методи оптимізації та дослідження операцій (лаб.)<br>
+        <small>ст. викл. Пасинков М.<br>3/25</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Інформаційні технології обробки багатовимірних даних (лаб.)<br>
+        <small>асист. Архангельська Ю.М., асист. Сидорова М.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Теорія ймовірностей та математична статистика (пр.)<br>
+        <small>доц. Гончаров С.В.<br>3/30</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Алгоритми комбінаторної оптимізації (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/39</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Математичні основи представлення знань (лк.)<br>
+        <small>ст. викл. Жильцова О.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Аналіз мовних сигналів (пр.)<br>
+        <small>проф. Карпов О.М.<br>3/50</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Математичні основи представлення знань (лк.)<br>
+        <small>ст. викл. Жильцова О.<br>3/31</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (лк.)<br>
+        <small>доц. Сердюк М.Є.<br>3/30</small>
+    </td>
+    <td class="tb lb rb2" colspan="8" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Програмування (лаб.)<br>
+        <small>ст. викл. Верба О.В., ст. викл. Косолап А.І.<br>4/40</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Комп'ютерна графіка (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., асист. Сидорова М.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>асист. 2 корпус</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Теорія алгоритмів та математична логіка (лк.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/53</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Математичний аналіз (лк.)<br>
+        <small>доц. Сорокін В.І.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Етика і естетика (лк.)<br>
+        <small>доц. Макогонова В.В.<br>3/25</small>
+    </font></td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритмічні мови та мовні процесори (пр.)<br>
+        <small>доц. Кузнецов К.А.<br>3/50</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Теорія ймовірностей та математична
+        статистика (лк.)<br>
+        <small>доц. Бондаренко Я.С.<br>3/37</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Чисельні методи (лаб.)<br>
+        <small>доц. Бойко Л.Т., ст. викл. Жильцова О.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Логічне і функціональне програмування (лк.)<br>
+        <small>асист. Архангельська Ю.М.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Теорія систем та математичне моделювання (лк.)<br>
+        <small>проф. Кузьменко В.І.<br>3/58</small>
+    </font></td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Додаткові розділи диференціальних рівнянь (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/59</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Методи теорії масового обслуговування (лк.)<br>
+        <small>асист. Єрещенко Н.<br>3/54</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Нейронні мережі або сіткові алгоритми (лаб.)<br>
+        <small>ст. викл. Пасинков М.<br>3/51</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Аналіз мовних сигналів (лк.)<br>
+        <small>проф. Карпов О.М.<br>3/46</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Елементи хаотичної динаміки (пр.)<br>
+        <small>проф. Білозьоров В.Є.<br>3/62</small>
+    </td>
+    <td class="lb" colspan="4" height="65px"><font size="+1">Методи оптимізації та дослідження операцій (лк.)<br>
+        <small>доц. Коряшкіна Л.С.<br>3/58</small>
+    </font></td>
+    <td class="lb" colspan="2" height="65px">Математичні основи представлення знань (лаб.)<br>
+        <small>ст. викл. Кузенков О.<br>3/28</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (пр.)<br>
+        <small>доц. Сердюк М.Є.<br>3/31</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Основи програмування (лк.)<br>
+        <small>ст. викл. Сегеда Н.Є.<br>3/46</small>
+    </td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Математичний аналіз (лк.)<br>
+        <small>доц. Черницька О.В.<br>3/53</small>
+    </font></td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Алгебра та геометрія (пр.)<br>
+        <small>доц. Варех Н.В.<br>3/58</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Диференціальні рівняння (лк.)<br>
+        <small>проф. Білозьоров В.Є.<br>3/25</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Релігієзнавство (лк.)<br>
+        <small>доц. Макогонова В.В.<br>3/57</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Проектний практикум (пр.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Програмування (лк.)<br>
+        <small>доц. Білобородько О.І.<br>3/37</small>
+    </td>
+    <td class="tb lb rb2" colspan="2" rowspan="2" height="130px">Релігієзнавство (лк.)<br>
+        <small>доц. Макогонова В.В.<br>3/57</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Чисельні методи в інформатиці (лк.)<br>
+        <small>доц. Гарт Л.Л.<br>3/32</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Об'єктно-орієнтоване програмування (лаб.)<br>
+        <small>асист. Сидорова М.<br>3/51</small>
+    </td>
+    <td class="tb lb rb2" colspan="6" rowspan="2" height="130px"><font size="+1">Фізичне виховання (пр.)<br>
+        <small>корпус 2</small>
+    </font></td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Алгоритми комп (лаб.)<br>
+        <small>проф. Карпов О.М., асист. Лучінкіна О.<br>3/47</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Варіаційні методи аналізу математичних моделей. Метод
+        скінченних елементів (лаб.)<br>
+        <small>проф. Кузьменко В.І., ст. викл. Катан В.О.<br>3/45</small>
+    </td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Імітаційне моделювання (лк.)<br>
+        <small>доц. Мацуга О.М.<br>3/30</small>
+    </td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Алгоритми комбінаторної оптимізації
+        (лк.)<br>
+        <small>доц. Кузнецов К.А.<br>3/59</small>
+    </font></td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" height="65px">Бази даних та інформаційні системи (лаб.)<br>
+        <small>ст. викл. Верба О.В., ст. викл. Косолап А.І.<br>4/40</small>
+    </td>
+    <td height="65px">Функціональне та логічне програмування (лаб.)<br>
+        <small>асист. Дзюба П.А.<br>4/43</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (лк.)<br>
+        <small>ст. викл. Жильцова О.<br>3/37</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Проектний практикум (пр.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/39</small>
+    </td>
+    <td class="tb lb" colspan="4" height="65px"><font size="+1">Алгебра та геометрія (лк.)<br>
+        <small>доц. Варех Н.В.<br>3/53</small>
+    </font></td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" rowspan="2" height="130px">Диференціальні рівняння (пр.)<br>
+        <small>доц. Сердюк М.Є.<br>3/25</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Лінійна алгебра та аналітична геометрія (лк.)<br>
+        <small>ст. викл. Козакова Н.Л.<br>3/58</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb rb2" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Сорокін В.І.<br>3/32</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="4" rowspan="2" height="130px"><font size="+1">Чисельні методи (лк.)<br>
+        <small>доц. Гарт Л.Л.<br>3/37</small>
+    </font></td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Теорія систем та математичне моделювання (лаб.)<br>
+        <small>проф. Кузьменко В.І., ст. викл. Катан В.О.<br>3/51</small>
+    </td>
+    <td class="tb lb" colspan="2" height="65px">Прикладний статистичний аналіз (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Єрещенко Н.<br>3/28</small>
+    </td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Математичний аналіз (пр.)<br>
+        <small>доц. Черницька О.В.<br>3/59</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb rb2" colspan="2" height="65px">&nbsp;</td>
+    <td class="lb" colspan="2" height="65px">Методи оптимізації та дослідження операцій (лк.)<br>
+        <small>ст. викл. Жильцова О.<br>3/31</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Прикладний статистичний аналіз (лаб.)<br>
+        <small>доц. Мацуга О.М., асист. Єрещенко Н.<br>3/28</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">Теорія систем та математичне моделювання (лаб.)<br>
+        <small>проф. Кузьменко В.І., ст. викл. Катан В.О.<br>3/51</small>
+    </td>
+</tr>
+<tr>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Основи програмування (пр.)<br>
+        <small>ст. викл. Сегеда Н.Є.<br>3/39</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb" colspan="2" height="65px">Основи програмної інженерії (лк.)<br>
+        <small>ст. викл. Михальчук Г.Й.<br>3/46</small>
+    </td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb rb2" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+    <td class="tb lb lb" colspan="2" rowspan="2" height="130px">&nbsp;</td>
+</tr>
+<tr>
+    <td class="lb" colspan="2" height="65px">Основи програмування (лаб.)<br>
+        <small>ст. викл. Михальчук Г.Й., ст. викл. Сегеда Н.Є.<br>3/45</small>
+    </td>
+    <td class="lb" colspan="2" height="65px">&nbsp;</td>
+</tr>
+<tr>
+    <td width="25" style="background: none; border:none;" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+    <td class="none" height="65px"></td>
+</tr>
+</tbody>
+</table>
+<script>
+    $('#tbl td').each(function(){
+    if(this.rowSpan==2){
+    this.height='130px';
+    }else{
+    this.height='65px';
+    }
+    });
+</script>
+<div style="clear:both;"></div>
+<div class="footer">
+    ©2008 <a href="mailto:nalivkin@mail.ru">naliva.com</a>
+</div>
+
+
+</body>
+</html>
