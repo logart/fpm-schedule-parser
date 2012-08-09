@@ -7,11 +7,11 @@ import java.util.Queue;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import edu.dnu.fpm.schedule.domain.EvenOddFlag;
+import edu.dnu.fpm.schedule.domain.ScheduleTable;
+import edu.dnu.fpm.schedule.domain.SubgroupFlag;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
-import org.logart.schedule.domain.EvenOddFlag;
-import org.logart.schedule.domain.ScheduleTable;
-import org.logart.schedule.domain.SubgroupFlag;
 
 /**
  * @author Artem Loginov (logart) logart2007@gmail.com

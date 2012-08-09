@@ -6,9 +6,14 @@
 
     <groupId>fpm.schedule</groupId>
     <artifactId>schedule-parser</artifactId>
-    <version>1.0-RC</version>
+    <version>1.0-RC1</version>
 
     <dependencies>
+        <dependency>
+            <groupId>fpm.schedule</groupId>
+            <artifactId>schedule-domain</artifactId>
+            <version>1.0-RC1</version>
+        </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
