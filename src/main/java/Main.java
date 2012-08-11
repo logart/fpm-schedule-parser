@@ -143,6 +143,6 @@ public class Main {
             }
         }
 
-        System.out.println(schedules.get(32).getText());
+//        System.out.println(schedules.get(32).getText());
     }
 }
