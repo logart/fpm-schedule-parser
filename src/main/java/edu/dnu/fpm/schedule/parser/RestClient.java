@@ -16,28 +16,26 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
  *         Time: 1:17 AM
  */
 public class RestClient {
-    public static void main(String[] args) {
+    private String serverAddress;
 
-        try {
-            ClientConfig clientConfig = new DefaultClientConfig();
-            clientConfig.getClasses().add(JacksonJsonProvider.class);
-            Client client = Client.create(clientConfig);
+    public RestClient(String serverAddress) {
+        this.serverAddress = serverAddress;
+    }
 
-            WebResource webResource = client
-                    .resource("http://localhost:8089/schedule-rest-server");
+    public void put(ScheduleTable schedule) {
+        ClientConfig clientConfig = new DefaultClientConfig();
+        clientConfig.getClasses().add(JacksonJsonProvider.class);
+        Client client = Client.create(clientConfig);
 
-            ClientResponse response = webResource.path("schedules").type(MediaType.APPLICATION_JSON)
-                    .put(ClientResponse.class, new ScheduleTable("pk"));
+        WebResource webResource = client
+                .resource(serverAddress);
 
-            if (response.getStatus() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
-            }
+        ClientResponse response = webResource.path("schedules").type(MediaType.APPLICATION_JSON)
+                .put(ClientResponse.class, schedule);
 
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
         }
 
     }
