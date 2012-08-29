@@ -28,102 +28,67 @@ public class ScheduleParser {
 
         List<TagNode> tableBody = clean.getElementListByName("tbody", true);
 
-        TagNode[] allElements = tableBody.get(0).getAllElements(false);
+        TagNode[] tableRows = tableBody.get(0).getAllElements(false);
 
-        TagNode groups = allElements[0];
-
-        List<ScheduleTable> schedules = new ArrayList<ScheduleTable>(groups.getAllElements(false).length);
-
-        TagNode[] allElements1 = groups.getAllElements(false);
-        for (int i2 = 1, allElements1Length = allElements1.length; i2 < allElements1Length; i2++) {
-            TagNode group = allElements1[i2];
-            schedules.add(new ScheduleTable(group.getText().toString()));
-        }
+        TagNode groupsRow = tableRows[0];
+        List<ScheduleTable> schedules = createSchedules(groupsRow);
 
         int line = 0;
         boolean isEvenLineExist;
         boolean evenLine = false;
         Queue<Integer> evenLessonIndexes = new LinkedList<Integer>();
 
-        for (int i = 1, allElementsLength = allElements.length; i < allElementsLength; i++) {
-            TagNode node = allElements[i];
+        for (int rowNumber = 1, rowCount = tableRows.length; rowNumber < rowCount; rowNumber++) {
+            TagNode row = tableRows[rowNumber];
 
-            TagNode[] elements = node.getAllElements(false);
+            TagNode[] rowElements = row.getAllElements(false);
 
             int groupNumber = 0;
             boolean isAdditionalGroupInfoAvailable = false;
 
             isEvenLineExist = false;
-            for (int i1 = "10".equals(elements[0].getAttributeByName("rowspan")) ? 1 : 0, elementsLength = elements.length; i1 < elementsLength; i1++) {
-                TagNode element = elements[i1];
+            boolean startsWithHeader = "10".equals(rowElements[0].getAttributeByName("rowspan"));
+            for (int elementNumber = startsWithHeader ? 1 : 0, elementsCount = rowElements.length; elementNumber < elementsCount; elementNumber++) {
+                TagNode cell = rowElements[elementNumber];
 
-                int colspan = element.getAttributeByName("colspan") == null ? 0 : Integer.parseInt(element.getAttributeByName("colspan")) / 2;
-                assert "1".equals(element.getAttributeByName("rowspan")) || "0".equals(element.getAttributeByName("rowspan")) || element.getAttributeByName("rowspan") == null;
-                boolean rowspan = element.getAttributeByName("rowspan") != null;
+                int cellWidth = getCellWidth(cell);
+//                assert "1".equals(cell.getAttributeByName("rowspan")) || "0".equals(cell.getAttributeByName("rowspan")) || cell.getAttributeByName("rowspan") == null;
+                boolean rowspan = cell.getAttributeByName("rowspan") != null;
 
-                if (rowspan && !evenLine) {
-                    isEvenLineExist = true;
-                }
+                isEvenLineExist = isEvenLineExist || rowspan && !evenLine;
 
                 //parsing line of schedule
                 final SubgroupFlag subgroupFlag;
-                if (colspan == 0) {
-                    if (isAdditionalGroupInfoAvailable) {
-                        isAdditionalGroupInfoAvailable = false;
-                        subgroupFlag = SubgroupFlag.SECOND;
-                    } else {
-                        isAdditionalGroupInfoAvailable = true;
-                        subgroupFlag = SubgroupFlag.FIRST;
-                    }
-
+                if (cellWidth == 0) {
+                    subgroupFlag = isAdditionalGroupInfoAvailable ? SubgroupFlag.SECOND : SubgroupFlag.FIRST;
+                    isAdditionalGroupInfoAvailable = !isAdditionalGroupInfoAvailable;
                 } else {
                     //this lesson is for all group(not for group parts)
                     subgroupFlag = SubgroupFlag.ALL;
                 }
 
 
-                final EvenOddFlag evenOddFlag;
-                if (!rowspan) {
-                    if (evenLine) {
-                        evenOddFlag = EvenOddFlag.EVEN;
-                    } else {
-                        evenOddFlag = EvenOddFlag.ODD;
-                        if (subgroupFlag.equals(SubgroupFlag.SECOND)) {
-                            evenLessonIndexes.add(groupNumber);
-
-                        }
-                        if (subgroupFlag.equals(SubgroupFlag.ALL)) {
-                            for (int k = 0; k < colspan; ++k) {
-                                evenLessonIndexes.add(groupNumber + k);
-                            }
-                        }
-                    }
-                } else {
-                    evenOddFlag = EvenOddFlag.ALL;
-                }
+                final EvenOddFlag evenOddFlag = evenOddFlag(rowspan, evenLine, subgroupFlag, evenLessonIndexes, groupNumber, cellWidth);
 
                 if (evenLine && subgroupFlag.equals(SubgroupFlag.FIRST)) {
                     groupNumber = evenLessonIndexes.remove();
                 }
 
-                if (colspan == 0) {
-                    schedules.get(groupNumber).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                if (cellWidth == 0) {
+                    schedules.get(groupNumber).setLesson(line / 5, line % 5, cell.getText().toString(), subgroupFlag, evenOddFlag);
                 }
 
                 if (evenLine) {
-                    for (int j = 0; j < colspan; j++) {
+                    for (int j = 0; j < cellWidth; j++) {
                         groupNumber = evenLessonIndexes.remove();
-                        schedules.get(groupNumber).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                        schedules.get(groupNumber).setLesson(line / 5, line % 5, cell.getText().toString(), subgroupFlag, evenOddFlag);
                     }
                 } else {
-                    for (int j = 0; j < colspan; ++j) {
-                        schedules.get(groupNumber + j).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                    for (int j = 0; j < cellWidth; ++j) {
+                        schedules.get(groupNumber + j).setLesson(line / 5, line % 5, cell.getText().toString(), subgroupFlag, evenOddFlag);
                     }
-                }
-
-                if (!evenLine) {
-                    groupNumber += colspan;
-                    if (colspan == 0 && !isAdditionalGroupInfoAvailable) {
+                    groupNumber += cellWidth;
+                    if (cellWidth == 0 && !isAdditionalGroupInfoAvailable) {
                         groupNumber++;
                     }
                 }
@@ -142,5 +107,42 @@ public class ScheduleParser {
             }
         }
         return schedules;
+    }
+
+    private List<ScheduleTable> createSchedules(TagNode groupsRow) {
+        List<ScheduleTable> schedules = new ArrayList<ScheduleTable>(groupsRow.getAllElements(false).length);
+
+        TagNode[] allElements1 = groupsRow.getAllElements(false);
+        for (int i2 = 1, allElements1Length = allElements1.length; i2 < allElements1Length; i2++) {
+            TagNode group = allElements1[i2];
+            schedules.add(new ScheduleTable(group.getText().toString()));
+        }
+        return schedules;
+    }
+
+    private int getCellWidth(TagNode element) {
+        return element.getAttributeByName("colspan") == null ? 0 : Integer.parseInt(element.getAttributeByName("colspan")) / 2;
+    }
+
+    private EvenOddFlag evenOddFlag(boolean rowspan, boolean evenLine, SubgroupFlag subgroupFlag, Queue<Integer> evenLessonIndexes, int groupNumber, int colspan){
+        EvenOddFlag evenOddFlag;
+        if (!rowspan) {
+            if (evenLine) {
+                evenOddFlag = EvenOddFlag.EVEN;
+            } else {
+                evenOddFlag = EvenOddFlag.ODD;
+                if (subgroupFlag.equals(SubgroupFlag.SECOND)) {
+                    evenLessonIndexes.add(groupNumber);
+                }
+                if (subgroupFlag.equals(SubgroupFlag.ALL)) {
+                    for (int k = 0; k < colspan; ++k) {
+                        evenLessonIndexes.add(groupNumber + k);
+                    }
+                }
+            }
+        } else {
+            evenOddFlag = EvenOddFlag.ALL;
+        }
+        return evenOddFlag;
     }
 }
