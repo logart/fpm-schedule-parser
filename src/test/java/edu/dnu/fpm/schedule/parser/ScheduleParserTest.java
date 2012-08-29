@@ -12,14 +12,24 @@ import java.util.List;
  */
 public class ScheduleParserTest {
     @Test
-    public void testParse() throws Exception {
+    public void testParsePK12() throws Exception {
         ScheduleParser parser = new ScheduleParser();
         FileInputStream page = new FileInputStream("src/main/resources/schedule.html");
         List<ScheduleTable> scheduleTables = parser.parse(page);
-        assertTableEquals("table 0", expectedTable0(), scheduleTables.get(0));
+        Assert.assertEquals(scheduleTables.size(), 33);
+        assertTableEquals("table ПК-12-1", expectedTablePK12(), scheduleTables.get(0));
     }
 
-    public ScheduleTable expectedTable0() {
+    @Test
+    public void testParsePK10() throws Exception {
+        ScheduleParser parser = new ScheduleParser();
+        FileInputStream page = new FileInputStream("src/main/resources/schedule.html");
+        List<ScheduleTable> scheduleTables = parser.parse(page);
+        Assert.assertEquals(scheduleTables.size(), 33);
+        assertTableEquals("table ПК-10-1", expectedTablePK10(), scheduleTables.get(10));
+    }
+
+    public ScheduleTable expectedTablePK12() {
         ScheduleTable table = new ScheduleTable("ПК-12-1");
         table.setLesson(0, 0, "Архітектура обчислювальних систем (лк.)\n" +
                 "        асист. Дзюба П.А.3/25\n" +
@@ -103,6 +113,114 @@ public class ScheduleParserTest {
         return table;
     }
 
+    public ScheduleTable expectedTablePK10() {
+        ScheduleTable table = new ScheduleTable("ПК-10-1");
+
+        table.setLesson(0, 0, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(0, 1, "Бази даних та інформаційні системи (лк.)\n" +
+                "        ст. викл. Косолап А.І.3/31\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(0, 2, "Функціональне та логічне програмування (лаб.)\n" +
+                "        доц. Ясько Н.Н., асист. Дзюба П.А.4/40\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.ALL);
+        table.setLesson(0, 2, "Бази даних та інформаційні системи (лаб.)\n" +
+                "        ст. викл. Красношапка Д.В.4/43\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.ALL);
+        table.setLesson(0, 3, "Функціональне та логічне програмування (лк.)\n" +
+                "        доц. Ясько Н.Н.3/25\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(0, 4, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+
+        table.setLesson(1, 0, "&nbsp;", SubgroupFlag.FIRST, EvenOddFlag.ODD);
+        table.setLesson(1, 0, "Функціональне та логічне програмування (лаб.)\n" +
+                "        асист. Дзюба П.А.4/40\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.ODD);
+        table.setLesson(1, 0, "Теорія ймовірностей та математична статистика (лк.)\n" +
+                "        доц. Гончаров С.В.3/54\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.EVEN);
+        table.setLesson(1, 1, "Програмування та підтримка веб-застосувань (лк.)\n" +
+                "        доц. Ясько Н.Н.3/39\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ODD);
+        table.setLesson(1, 1, "Теорія ймовірностей та математична статистика (пр.)\n" +
+                "        доц. Гончаров С.В.3/39\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.EVEN);
+        table.setLesson(1, 2, "Фізичне виховання (пр.)\n" +
+                "        асист. 2 корпус\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(1, 3, "Психологія (лк.)\n" +
+                "        доц. Лазаренко В.І.3/25\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(1, 4, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+
+        table.setLesson(2, 0, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(2, 1, "Методи оптимізації та дослідження операцій (лк.)\n" +
+                "        доц. Коряшкіна Л.С.3/31\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(2, 2, "Чисельні методи в інформатиці (лаб.)\n" +
+                "        доц. Гарт Л.Л., ст. викл. Кузенков О.3/28\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ODD);
+        table.setLesson(2, 2, "Чисельні методи в інформатиці (лк.)\n" +
+                "        доц. Гарт Л.Л.3/57\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.EVEN);
+        table.setLesson(2, 3, "Чисельні методи в інформатиці (лк.)\n" +
+                "        доц. Гарт Л.Л.4/49\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ODD);
+        table.setLesson(2, 3, "Чисельні методи в інформатиці (лаб.)\n" +
+                "        доц. Гарт Л.Л., ст. викл. Кузенков О.4/40\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.EVEN);
+        table.setLesson(2, 4, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ODD);
+        table.setLesson(2, 4, "Програмування та підтримка веб-застосувань (лк.)\n" +
+                "        доц. Ясько Н.Н.3/25\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.EVEN);
+
+        table.setLesson(3, 0, "Програмування та підтримка веб-застосувань (лаб.)\n" +
+                "        доц. Ясько Н.Н., ст. викл. Косолап А.І.4/43\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.ALL);
+        table.setLesson(3, 0, "Операційні системи та системне програмування (лаб.)\n" +
+                "        ст. викл. Красношапка Д.В.4/40\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.ALL);
+        table.setLesson(3, 1, "Операційні системи та системне програмування (лаб.)\n" +
+                "        ст. викл. Красношапка Д.В., асист. Дзюба П.А.4/40\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.ALL);
+        table.setLesson(3, 1, "Програмування та підтримка веб-застосувань (лаб.)\n" +
+                "        ст. викл. Косолап А.І.4/43\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.ALL);
+        table.setLesson(3, 2, "Фізичне виховання (пр.)\n" +
+                "        асист. 2 корпус\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(3, 3, "Операційні системи та системне програмування (лк.)\n" +
+                "        ст. викл. Красношапка Д.В.3/53\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(3, 4, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+
+        table.setLesson(4, 0, "Бази даних та інформаційні системи (лаб.)\n" +
+                "        ст. викл. Верба О.В., ст. викл. Косолап А.І.4/40\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.ODD);
+        table.setLesson(4, 0, "&nbsp;", SubgroupFlag.SECOND, EvenOddFlag.ODD);
+        table.setLesson(4, 0, "Методи оптимізації та дослідження операцій (лаб.)\n" +
+                "        доц. Коряшкіна Л.С., асист. Зайченко О.3/37\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.EVEN);
+        table.setLesson(4, 0, "Методи оптимізації та дослідження операцій (лаб.)\n" +
+                "        ст. викл. Пасинков М.3/25\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.EVEN);
+        table.setLesson(4, 1, "Етика і естетика (лк.)\n" +
+                "        доц. Макогонова В.В.3/25\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(4, 2, "Чисельні методи в інформатиці (лк.)\n" +
+                "        доц. Гарт Л.Л.3/32\n" +
+                "    ", SubgroupFlag.ALL, EvenOddFlag.ODD);
+        table.setLesson(4, 2, "Бази даних та інформаційні системи (лаб.)\n" +
+                "        ст. викл. Верба О.В., ст. викл. Косолап А.І.4/40\n" +
+                "    ", SubgroupFlag.FIRST, EvenOddFlag.EVEN);
+        table.setLesson(4, 2, "Функціональне та логічне програмування (лаб.)\n" +
+                "        асист. Дзюба П.А.4/43\n" +
+                "    ", SubgroupFlag.SECOND, EvenOddFlag.EVEN);
+        table.setLesson(4, 3, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+        table.setLesson(4, 4, "&nbsp;", SubgroupFlag.ALL, EvenOddFlag.ALL);
+
+        return table;
+    }
+
     public void assertTableEquals(String message, ScheduleTable expected, ScheduleTable actual) {
         Assert.assertEquals(expected.getGroupName(), actual.getGroupName());
 
@@ -143,23 +261,4 @@ public class ScheduleParserTest {
         Assert.assertEquals(message + ", EvenOddFlag", expected.getEvenOddFlag(), actual.getEvenOddFlag());
         Assert.assertEquals(message + ", SubgroupFlag", expected.getSubgroupFlag(), actual.getSubgroupFlag());
     }
-
-
 }
-//        table.setLesson(2,0,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(2,1,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(2,2,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(2,3,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(2,4,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//
-//        table.setLesson(3,0,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(3,1,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(3,2,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(3,3,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(3,4,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//
-//        table.setLesson(4,0,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(4,1,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(4,2,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(4,3,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
-//        table.setLesson(4,4,"", SubgroupFlag.ALL, EvenOddFlag.ALL);
