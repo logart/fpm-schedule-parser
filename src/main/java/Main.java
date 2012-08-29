@@ -2,9 +2,7 @@ import java.io.IOException;
 import java.util.List;
 
 import edu.dnu.fpm.schedule.domain.ScheduleTable;
-import edu.dnu.fpm.schedule.parser.RestClient;
-import edu.dnu.fpm.schedule.parser.ScheduleGetter;
-import edu.dnu.fpm.schedule.parser.ScheduleParser;
+import edu.dnu.fpm.schedule.parser.*;
 
 /**
  * @author Artem Loginov (logart) logart2007@gmail.com
@@ -17,7 +15,8 @@ public class Main {
         ScheduleParser parser = new ScheduleParser();
         ScheduleGetter getter = new ScheduleGetter();
         RestClient client = new RestClient("http://localhost:8089/schedule-rest-server");
-        List<ScheduleTable> scheduleTables = parser.parse(getter.get());
+        ScheduleBuilderImpl scheduleBuilder = (ScheduleBuilderImpl) parser.parse(getter.get(), new ScheduleBuilderImpl());
+        List<ScheduleTable> scheduleTables = scheduleBuilder.build();
         for (ScheduleTable scheduleTable : scheduleTables) {
             client.put(scheduleTable);
         }

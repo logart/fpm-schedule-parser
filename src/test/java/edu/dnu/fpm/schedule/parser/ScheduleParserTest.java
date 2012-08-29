@@ -15,7 +15,8 @@ public class ScheduleParserTest {
     public void testParsePK12() throws Exception {
         ScheduleParser parser = new ScheduleParser();
         FileInputStream page = new FileInputStream("src/main/resources/schedule.html");
-        List<ScheduleTable> scheduleTables = parser.parse(page);
+        ScheduleBuilderImpl scheduleBuilder = (ScheduleBuilderImpl) parser.parse(page, new ScheduleBuilderImpl());
+        List<ScheduleTable> scheduleTables = scheduleBuilder.build();
         Assert.assertEquals(scheduleTables.size(), 33);
         assertTableEquals("table ПК-12-1", expectedTablePK12(), scheduleTables.get(0));
     }
@@ -24,7 +25,8 @@ public class ScheduleParserTest {
     public void testParsePK10() throws Exception {
         ScheduleParser parser = new ScheduleParser();
         FileInputStream page = new FileInputStream("src/main/resources/schedule.html");
-        List<ScheduleTable> scheduleTables = parser.parse(page);
+        ScheduleBuilderImpl scheduleBuilder = (ScheduleBuilderImpl) parser.parse(page, new ScheduleBuilderImpl());
+        List<ScheduleTable> scheduleTables = scheduleBuilder.build();
         Assert.assertEquals(scheduleTables.size(), 33);
         assertTableEquals("table ПК-10-1", expectedTablePK10(), scheduleTables.get(10));
     }

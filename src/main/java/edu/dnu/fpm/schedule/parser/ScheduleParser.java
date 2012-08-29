@@ -1,17 +1,15 @@
 package edu.dnu.fpm.schedule.parser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 import edu.dnu.fpm.schedule.domain.EvenOddFlag;
-import edu.dnu.fpm.schedule.domain.ScheduleTable;
 import edu.dnu.fpm.schedule.domain.SubgroupFlag;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * @author Artem Loginov (logart) logart2007@gmail.com
@@ -21,7 +19,7 @@ import org.htmlcleaner.TagNode;
 public class ScheduleParser {
 
     @SuppressWarnings("unchecked")
-    public List<ScheduleTable> parse(InputStream scheduleRawData) throws IOException {
+    public ScheduleBuilder parse(InputStream scheduleRawData, ScheduleBuilder scheduleBuilder) throws IOException {
 
         HtmlCleaner cleaner = new HtmlCleaner();
         TagNode clean = cleaner.clean(scheduleRawData);
@@ -31,7 +29,10 @@ public class ScheduleParser {
         TagNode[] tableRows = tableBody.get(0).getAllElements(false);
 
         TagNode groupsRow = tableRows[0];
-        List<ScheduleTable> schedules = createSchedules(groupsRow);
+        String[] groupNames = getGroupNames(groupsRow);
+        for (String groupName : groupNames) {
+            scheduleBuilder.addGroup(groupName);
+        }
 
         int line = 0;
         boolean isNextLineEven;
@@ -75,19 +76,22 @@ public class ScheduleParser {
 
                 final int dayNumber = line / 5;
                 final int lessonNumber = line % 5;
-                String lessonName = cell.getText().toString();
+                final String lessonName = cell.getText().toString();
                 if (cellWidth == 0) {
-                    schedules.get(groupNumber).setLesson(dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
+                    final String groupName = groupNames[groupNumber];
+                    scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                 }
 
                 if (evenLine) {
                     for (int j = 0; j < cellWidth; j++) {
                         groupNumber = evenLessonGroupsIndexes.remove();
-                        schedules.get(groupNumber).setLesson(dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
+                        final String groupName = groupNames[groupNumber];
+                        scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                     }
                 } else {
                     for (int j = 0; j < cellWidth; ++j) {
-                        schedules.get(groupNumber + j).setLesson(dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
+                        final String groupName = groupNames[groupNumber + j];
+                        scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                     }
                     groupNumber += cellWidth;
                     if (cellWidth == 0 && !isAdditionalGroupInfoAvailable) {
@@ -108,18 +112,17 @@ public class ScheduleParser {
                 break;
             }
         }
-        return schedules;
+        return scheduleBuilder;
     }
 
-    private List<ScheduleTable> createSchedules(TagNode groupsRow) {
-        List<ScheduleTable> schedules = new ArrayList<ScheduleTable>(groupsRow.getAllElements(false).length);
-
+    private String[] getGroupNames(TagNode groupsRow) {
+        String[] groupNames = new String[groupsRow.getAllElements(false).length - 1];
         TagNode[] allElements1 = groupsRow.getAllElements(false);
         for (int elementNumber = 1, allElements1Length = allElements1.length; elementNumber < allElements1Length; elementNumber++) {
             TagNode group = allElements1[elementNumber];
-            schedules.add(new ScheduleTable(group.getText().toString()));
+            groupNames[elementNumber - 1] = group.getText().toString();
         }
-        return schedules;
+        return groupNames;
     }
 
     private int getCellWidth(TagNode element) {
