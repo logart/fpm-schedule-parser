@@ -1,17 +1,15 @@
 package edu.dnu.fpm.schedule.parser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 import edu.dnu.fpm.schedule.domain.EvenOddFlag;
-import edu.dnu.fpm.schedule.domain.ScheduleTable;
 import edu.dnu.fpm.schedule.domain.SubgroupFlag;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * @author Artem Loginov (logart) logart2007@gmail.com
@@ -21,117 +19,90 @@ import org.htmlcleaner.TagNode;
 public class ScheduleParser {
 
     @SuppressWarnings("unchecked")
-    public List<ScheduleTable> parse(InputStream scheduleRawData) throws IOException {
+    public ScheduleBuilder parse(InputStream scheduleRawData, ScheduleBuilder scheduleBuilder) throws IOException {
 
         HtmlCleaner cleaner = new HtmlCleaner();
         TagNode clean = cleaner.clean(scheduleRawData);
 
         List<TagNode> tableBody = clean.getElementListByName("tbody", true);
 
-        TagNode[] allElements = tableBody.get(0).getAllElements(false);
+        TagNode[] tableRows = tableBody.get(0).getAllElements(false);
 
-        TagNode groups = allElements[0];
-
-        List<ScheduleTable> schedules = new ArrayList<ScheduleTable>(groups.getAllElements(false).length);
-
-        TagNode[] allElements1 = groups.getAllElements(false);
-        for (int i2 = 1, allElements1Length = allElements1.length; i2 < allElements1Length; i2++) {
-            TagNode group = allElements1[i2];
-            schedules.add(new ScheduleTable(group.getText().toString()));
+        TagNode groupsRow = tableRows[0];
+        String[] groupNames = getGroupNames(groupsRow);
+        for (String groupName : groupNames) {
+            scheduleBuilder.addGroup(groupName);
         }
 
         int line = 0;
-        boolean isEvenLineExist;
+        boolean isNextLineEven;
         boolean evenLine = false;
-        Queue<Integer> evenLessonIndexes = new LinkedList<Integer>();
+        Queue<Integer> evenLessonGroupsIndexes = new LinkedList<Integer>();
 
-        for (int i = 1, allElementsLength = allElements.length; i < allElementsLength; i++) {
-            TagNode node = allElements[i];
+        for (int rowNumber = 1, rowCount = tableRows.length; rowNumber < rowCount; rowNumber++) {
+            TagNode row = tableRows[rowNumber];
 
-            TagNode[] elements = node.getAllElements(false);
+            TagNode[] rowElements = row.getAllElements(false);
 
             int groupNumber = 0;
             boolean isAdditionalGroupInfoAvailable = false;
+            isNextLineEven = false;
+            boolean startsWithHeader = "10".equals(rowElements[0].getAttributeByName("rowspan"));
 
-            isEvenLineExist = false;
-            for (int i1 = "10".equals(elements[0].getAttributeByName("rowspan")) ? 1 : 0, elementsLength = elements.length; i1 < elementsLength; i1++) {
-                TagNode element = elements[i1];
+            for (int elementNumber = startsWithHeader ? 1 : 0, elementsCount = rowElements.length; elementNumber < elementsCount; elementNumber++) {
+                TagNode cell = rowElements[elementNumber];
 
-                int colspan = element.getAttributeByName("colspan") == null ? 0 : Integer.parseInt(element.getAttributeByName("colspan")) / 2;
-                assert "1".equals(element.getAttributeByName("rowspan")) || "0".equals(element.getAttributeByName("rowspan")) || element.getAttributeByName("rowspan") == null;
-                boolean rowspan = element.getAttributeByName("rowspan") != null;
+                int cellWidth = getCellWidth(cell);
+//                assert "1".equals(cell.getAttributeByName("hasRowspan")) || "0".equals(cell.getAttributeByName("hasRowspan")) || cell.getAttributeByName("hasRowspan") == null;
+                boolean highCell = cell.getAttributeByName("rowspan") != null;
 
-                if (rowspan && !evenLine) {
-                    isEvenLineExist = true;
-                }
+                isNextLineEven = isNextLineEven || highCell && !evenLine;
 
                 //parsing line of schedule
-                final SubgroupFlag subgroupFlag;
-                if (colspan == 0) {
-                    if (isAdditionalGroupInfoAvailable) {
-                        isAdditionalGroupInfoAvailable = false;
-                        subgroupFlag = SubgroupFlag.SECOND;
-                    } else {
-                        isAdditionalGroupInfoAvailable = true;
-                        subgroupFlag = SubgroupFlag.FIRST;
-                    }
+                final SubgroupFlag subgroupFlag = subgroup(cellWidth, isAdditionalGroupInfoAvailable);
 
-                } else {
-                    //this lesson is for all group(not for group parts)
-                    subgroupFlag = SubgroupFlag.ALL;
+                if (!subgroupFlag.equals(SubgroupFlag.ALL)) {
+                    isAdditionalGroupInfoAvailable = !isAdditionalGroupInfoAvailable;
                 }
 
+                final EvenOddFlag evenOddFlag = evenOdd(highCell, evenLine);
 
-                final EvenOddFlag evenOddFlag;
-                if (!rowspan) {
-                    if (evenLine) {
-                        evenOddFlag = EvenOddFlag.EVEN;
-                    } else {
-                        evenOddFlag = EvenOddFlag.ODD;
-                        if (subgroupFlag.equals(SubgroupFlag.SECOND)) {
-                            evenLessonIndexes.add(groupNumber);
-
-                        }
-                        if (subgroupFlag.equals(SubgroupFlag.ALL)) {
-                            for (int k = 0; k < colspan; ++k) {
-                                evenLessonIndexes.add(groupNumber + k);
-                            }
-                        }
-                    }
-                } else {
-                    evenOddFlag = EvenOddFlag.ALL;
-                }
+                evenLessonGroupsIndexes = enqueueGroupIndex(evenLessonGroupsIndexes, evenOddFlag, subgroupFlag, groupNumber, cellWidth);
+                // odd lessons will be in the next row
 
                 if (evenLine && subgroupFlag.equals(SubgroupFlag.FIRST)) {
-                    groupNumber = evenLessonIndexes.remove();
+                    groupNumber = evenLessonGroupsIndexes.remove();
                 }
 
-                if (colspan == 0) {
-                    schedules.get(groupNumber).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                final int dayNumber = line / 5;
+                final int lessonNumber = line % 5;
+                final String lessonName = cell.getText().toString();
+                if (cellWidth == 0) {
+                    final String groupName = groupNames[groupNumber];
+                    scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                 }
 
                 if (evenLine) {
-                    for (int j = 0; j < colspan; j++) {
-                        groupNumber = evenLessonIndexes.remove();
-                        schedules.get(groupNumber).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                    for (int j = 0; j < cellWidth; j++) {
+                        groupNumber = evenLessonGroupsIndexes.remove();
+                        final String groupName = groupNames[groupNumber];
+                        scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                     }
                 } else {
-                    for (int j = 0; j < colspan; ++j) {
-                        schedules.get(groupNumber + j).setLesson(line / 5, line % 5, element.getText().toString(), subgroupFlag, evenOddFlag);
+                    for (int j = 0; j < cellWidth; ++j) {
+                        final String groupName = groupNames[groupNumber + j];
+                        scheduleBuilder.addLesson(groupName, dayNumber, lessonNumber, lessonName, subgroupFlag, evenOddFlag);
                     }
-                }
-
-                if (!evenLine) {
-                    groupNumber += colspan;
-                    if (colspan == 0 && !isAdditionalGroupInfoAvailable) {
+                    groupNumber += cellWidth;
+                    if (cellWidth == 0 && !isAdditionalGroupInfoAvailable) {
                         groupNumber++;
                     }
                 }
             }
 
-            if (!isEvenLineExist) {
+            if (!isNextLineEven) {
                 line++;
-                evenLessonIndexes.clear();
+                evenLessonGroupsIndexes.clear();
                 evenLine = false;
             } else {
                 evenLine = true;
@@ -141,6 +112,61 @@ public class ScheduleParser {
                 break;
             }
         }
-        return schedules;
+        return scheduleBuilder;
+    }
+
+    private String[] getGroupNames(TagNode groupsRow) {
+        String[] groupNames = new String[groupsRow.getAllElements(false).length - 1];
+        TagNode[] allElements1 = groupsRow.getAllElements(false);
+        for (int elementNumber = 1, allElements1Length = allElements1.length; elementNumber < allElements1Length; elementNumber++) {
+            TagNode group = allElements1[elementNumber];
+            groupNames[elementNumber - 1] = group.getText().toString();
+        }
+        return groupNames;
+    }
+
+    private int getCellWidth(TagNode element) {
+        return element.getAttributeByName("colspan") == null ? 0 : Integer.parseInt(element.getAttributeByName("colspan")) / 2;
+    }
+
+    private SubgroupFlag subgroup(int cellWidth, boolean isAdditionalGroupInfoAvailable) {
+        SubgroupFlag subgroupFlag;
+        if (cellWidth == 0) {
+            subgroupFlag = isAdditionalGroupInfoAvailable ? SubgroupFlag.SECOND : SubgroupFlag.FIRST;
+        } else {
+            //this lesson is for all group(not for group parts)
+            subgroupFlag = SubgroupFlag.ALL;
+        }
+        return subgroupFlag;
+    }
+
+    private EvenOddFlag evenOdd(boolean rowspan, boolean evenLine) {
+        EvenOddFlag evenOddFlag;
+        if (!rowspan) {
+            if (evenLine) {
+                evenOddFlag = EvenOddFlag.EVEN;
+            } else {
+                evenOddFlag = EvenOddFlag.ODD;
+            }
+        } else {
+            evenOddFlag = EvenOddFlag.ALL;
+        }
+        return evenOddFlag;
+    }
+
+    private Queue<Integer> enqueueGroupIndex(Queue<Integer> evenLessonGroupsIndexes,
+                                             EvenOddFlag evenOddFlag, SubgroupFlag subgroupFlag,
+                                             int groupNumber, int cellWidth) {
+        if (evenOddFlag.equals(EvenOddFlag.ODD)) {
+            if (subgroupFlag.equals(SubgroupFlag.SECOND)) {
+                evenLessonGroupsIndexes.add(groupNumber);
+            }
+            if (subgroupFlag.equals(SubgroupFlag.ALL)) {
+                for (int k = 0; k < cellWidth; ++k) {
+                    evenLessonGroupsIndexes.add(groupNumber + k);
+                }
+            }
+        }
+        return evenLessonGroupsIndexes;
     }
 }
