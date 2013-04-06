@@ -47,7 +47,10 @@ public class ScheduleParser {
             int groupNumber = 0;
             boolean isAdditionalGroupInfoAvailable = false;
             isNextLineEven = false;
-            boolean startsWithHeader = "10".equals(rowElements[0].getAttributeByName("rowspan"));
+            boolean startsWithHeader = false;
+            if (rowElements.length > 0) {
+                startsWithHeader = "10".equals(rowElements[0].getAttributeByName("rowspan"));
+            }
 
             for (int elementNumber = startsWithHeader ? 1 : 0, elementsCount = rowElements.length; elementNumber < elementsCount; elementNumber++) {
                 TagNode cell = rowElements[elementNumber];
